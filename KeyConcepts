@@ -1,0 +1,18 @@
+1. Request -> Any sort of data/command/process coming into the application
+2. Response -> Any sort of Data/JSON/Result shared by the application on receiving some request
+3. Filter Chain -> It comes between response and the application
+                -> Consists of series of filters
+                -> Once the request goes through all the filters, it reaches the controllers
+                -> Each filter has a series of jobs based on their configuration
+                -> Without spring security we have filters but with spring security we have a special filter called Authentication Filter
+4. Authentication filter -> Intercepts the authentication requests and fetches username and passowrd (or any other field) to create an authentication object
+5. Authentication Manager -> Authentication object is passed on the authentication manager and this manager decides what to do with these objects
+6. Authentication Provider (DaoAuthentication Provider) -> It is used by authentication manager to validate the credentials
+7. Password Encoder -> Used by authen. provider to validate
+                    -> Helps to encode and decode the password while saving and fetching
+8. UserDetailsService -> It is called by AP to load the user details.
+                      -> It uses methods like loadByUsername() to load the data and findByUsername() to find the user from db
+The userdetaislservice returns the UserDetails object which consists of all the data about user (roles, number etc)
+This data is then added to the authentication object which was first created by the authentication filer
+9. Security Context -> It stores the context of complete authentication and all the info about authentication object is stored in security context
+                    -> This tells about the object ex : telling what the user is allowed to do or not
